@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import User from '~/models/schemas/User.schema.ts'
 import databaseService from '~/services/database.services.ts'
 
@@ -10,23 +10,10 @@ export const loginController = (req: Request, res: Response) => {
   })
 }
 
-export const registerController = async (req: Request, res: Response) => {
-  const { email, password } = req.body
+export const registerController = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const result = await databaseService.users.insertOne(
-      new User({
-        email,
-        password
-      })
-    )
-    console.log('result', result)
-
-    res.json({
-      mesage: 'REGISTER SUCCESS'
-    })
+    res.status(201).json({ message: 'User registered successfully' })
   } catch (error) {
-    res.status(400).json({
-      error: 'register filed'
-    })
+    next(error)
   }
 }
