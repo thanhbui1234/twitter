@@ -1,10 +1,5 @@
 import { ObjectId } from 'mongodb'
-
-enum StatusVerify {
-  Unverifield, // have not verify email , default = 0
-  Verified, // verified email
-  Banned // banned
-}
+import { StatusVerify } from '~/constants/enum.ts'
 
 export interface UserType {
   _id?: ObjectId
