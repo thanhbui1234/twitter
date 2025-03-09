@@ -17,12 +17,9 @@ export const registerController = async (
   res: any,
   next: NextFunction
 ): Promise<void> => {
-  try {
-    const result = await userService.registerUser(req.body)
-    console.log('result', result)
+  throw new Error('lỗi rồi')
+  const result = await userService.registerUser(req.body)
+  console.log('result', result)
 
-    res.status(201).json({ message: 'User registered successfully', result })
-  } catch (error) {
-    next(error)
-  }
+  res.status(201).json({ message: 'User registered successfully', result })
 }

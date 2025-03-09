@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import usersRouter from '~/routes/users.routes.ts'
 import databaseService from './services/database.services.ts'
 const app = express()
@@ -12,6 +12,12 @@ app.use('/user', usersRouter)
 
 databaseService.connect()
 
+app.use((err: any, req: any, res: any, next: any) => {
+  console.log('lỗi ', err.message)
+  res.status(404).json({
+    err: err.message
+  })
+})
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`)
 })
